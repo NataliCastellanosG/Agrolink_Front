@@ -1,14 +1,13 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
-import routes from './config/routes'
-//import AuthProvider from './providers/authProviders';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import routes from "./config/routes";
+import AuthProvider from "./providers/authProviders";
 
-import './App.scss';
-
-//import Layout from "antd/lib/layout/layout";
+import "./App.scss";
 
 function App() {
   return (
+    <AuthProvider>
       <Router>
         <Switch>
           {routes.map((route, index) => (
@@ -16,20 +15,18 @@ function App() {
           ))}
         </Switch>
       </Router>
+    </AuthProvider>
   );
 }
 
-function RouteWithSubRoutes(route){
+function RouteWithSubRoutes(route) {
   return (
     <Route
-      path = {route.path}
-      exact = {route.exact}
-      render = {props => <route.component routes={route.routes} {...props} />}
+      path={route.path}
+      exact={route.exact}
+      render={(props) => <route.component routes={route.routes} {...props} />}
     />
   );
 }
 
-
 export default App;
-
-

@@ -29,20 +29,20 @@
     &-logo {
       width: 100px;
       height: 85px;
-      margin: 25px 10px 0px 84px;
+      margin: 25px 10px 0px 55px;
     }
 
     &-title {
       margin-top: 40px;
       font-family: Roboto;
-      color: #508d3d;
+      color: $primary-color-hover;
 
       &-h1 {
         font-family: Roboto;
         font-size: 21px;
         font-weight: bolder;
         letter-spacing: 10px;
-        color: #508d3d;
+        color: $primary-color-hover;
         height: 25px;
       }
 
@@ -51,17 +51,15 @@
         font-size: 19px;
         font-weight: lighter;
         letter-spacing: 10px;
-        color: #508d3d;
+        color: $primary-color-hover;
         height: 20px;
       }
     }
 
     &-right {
-      //position: absolute;
+      position: absolute;
       right: 0;
-      margin: 40px 0px 0px 0px;
-      justify-items: right;
-      right: 0;
+      margin: 40px 0px 0px 100px;
 
       &-items {
         align-items: right;
@@ -70,28 +68,21 @@
         letter-spacing: 10px;
         padding: 0px 0px 0px 70px;
       }
-    }
-  }
 
-  &__content {
-    height: 100%;
-    padding: 0px;
-
-    &__fondo {
-      background-image: url("../assets/img/jpg/Fondo_Base.jpg");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      height: 715px;
-    }
-
-    &-row {
-      height: 20px;
-      width: 100%;
+      &-dropdown {
+        text-align: right;
+        &-item {
+          color: #5b5b5b;
+          font-family: Roboto;
+          font-size: 15px;
+          letter-spacing: 10px;
+        }
+      }
     }
   }
 
   &__footer {
+    margin-top: auto;
     padding: 0px;
     &-img {
       background-image: url("../assets/img/png/franja_3.png");
@@ -111,12 +102,34 @@
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open,
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
-    color: #508d3d;
-    border-bottom: 2px solid #508d3d;
+    color: $primary-color-hover;
+    border-bottom: 2px solid $primary-color-hover;
+    a {
+      color: $primary-color-hover;
+    }
   }
 
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item,
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
     margin: 0px 30px 0px 0px;
+  }
+
+  .ant-btn {
+    color: #5b5b5b;
+    border-color: transparent;
+    font-family: Roboto;
+    font-size: 15px;
+    letter-spacing: 10px;
+  }
+  .ant-btn:active {
+    color: $primary-color-hover;
+  }
+
+  .ant-dropdown-menu-item > a,
+  .ant-dropdown-menu-submenu-title > a {
+    color: #5b5b5b;
+    font-weight: normal;
+    font-size: 15px;
+    letter-spacing: 10px;
   }
 }

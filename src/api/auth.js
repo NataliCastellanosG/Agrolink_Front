@@ -1,4 +1,4 @@
-/*import { basePath, apiVersion } from "./config";
+import { basePath, apiVersion } from "./config";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
 import jwtDecode from "jwt-decode";
 
@@ -61,4 +61,4 @@ function willExpireToken(token) {
   const now = (Date.now() + seconds) / 1000;
 
   return now > exp;
-}*/
+}
