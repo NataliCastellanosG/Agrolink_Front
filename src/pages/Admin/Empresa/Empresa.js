@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Layout, Row, Typography } from "antd";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //import Productos from '../../../components/Admin/RegistrarProducto';
 //import InfoEmpresa from '../../../components/Admin/InfoEmpresa';
 
+import { getAccessTokenApi } from "../../../api/auth";
+import { mostrarEmpresa } from "../../../api/empresa";
+
 import "./Empresa.scss";
 
 export default function Empresa() {
+  const [empresa, setEmpresa] = useState();
+  const token = getAccessTokenApi();
+  var id = localStorage.getItem("id");
+
+  useEffect(() => {
+    mostrarEmpresa(token, id).then((response) => {
+      setEmpresa(response.empresa);
+    });
+  }, [token, id]);
+
   return (
     <Layout className="empresa">
       <Row className="empresa__row-alta">
@@ -22,7 +35,10 @@ export default function Empresa() {
         <Row className="empresa__row">
           <Col span={12} className="empresa__col">
             <Link
-              to={"/activo/informacionProveedor"}
+              to={{
+                pathname: "/activo/informacionProveedor",
+                row: { empresa },
+              }}
               className="empresa__col-button"
             >
               <Typography variant="h1" className="empresa__col-button-h1">

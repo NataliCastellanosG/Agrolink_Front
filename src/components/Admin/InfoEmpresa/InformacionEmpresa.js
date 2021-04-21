@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Layout, Row, Typography } from "antd";
-
-import { getAccessTokenApi } from "../../../api/auth";
-import { mostrarEmpresa } from "../../../api/empresa";
 
 import "./InformacionEmpresa.scss";
 
-export default function Informacion() {
-  const [empresa, setEmpresa] = useState();
-  const token = getAccessTokenApi();
-  var id = localStorage.getItem("id");
-  useEffect(() => {
-    mostrarEmpresa(token, id).then((response) => {
-      console.log("response", response);
-      setEmpresa(response);
-    });
-  }, [token, id]);
-  console.log("empresa", empresa);
+export default function Informacion(props) {
+  const { empresa } = props;
+  console.log("empresa", props.empresa._id);
+  console.log("empresa2", empresa);
   return (
     <Layout className="informacion">
       <Row className="informacion__row-alta"></Row>
@@ -27,25 +17,25 @@ export default function Informacion() {
       </Row>
       <Row className="informacion__content">
         <Typography variant={"h1"} className="informacion__content-titulo">
-          {empresa.empresa.nombre}
+          {empresa.nombre}
         </Typography>
-        {/*<Typography.Paragraph className="informacion__content-info">
-          <b>NIT:</b> {empresa.empresa.nit}
+        <Typography.Paragraph className="informacion__content-info">
+          <b>NIT:</b> {empresa.nit}
           <br />
-          <b>Asocación:</b> {empresa.empresa.asociacion}
+          <b>Asocación:</b> {empresa.asociacion}
           <br />
-          <b>Representante legal:</b> {empresa.empresa.representante_legal}
+          <b>Representante legal:</b> {empresa.representante_legal}
           <br />
           <b>Cédula del representante legal:</b>
-          {empresa.empresa.cedula_representante_legal}
+          {empresa.cedula_representante_legal}
           <br />
-          <b>Correo electrónico</b> {empresa.empresa.correo_electronico}
+          <b>Correo electrónico</b> {empresa.correo_electronico}
           <br />
-          <b>Ubicación</b> {empresa.empresa.departamento} ,{" "}
-          {empresa.empresa.municipio}, {empresa.empresa.direccion_empresa}
+          <b>Ubicación</b> {empresa.departamento} ,{empresa.municipio},{" "}
+          {empresa.direccion_empresa}
           <br />
-          <b>Reseña:</b> {empresa.empresa.resena}
-  </Typography.Paragraph>*/}
+          <b>Reseña:</b> {empresa.resena}
+        </Typography.Paragraph>
       </Row>
     </Layout>
   );

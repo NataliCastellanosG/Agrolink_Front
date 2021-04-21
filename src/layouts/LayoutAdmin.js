@@ -54,7 +54,7 @@ function LayoutAdmin(props) {
     );
 
     localStorage.setItem("id", empresa.id);
-    console.log(localStorage.getItem("id"));
+
     if (empresa.rol === "comprador") {
       return (
         <Layout className="layout-admin">

@@ -6,7 +6,7 @@ import InfoEmpresa from "../../../../components/Admin/InfoEmpresa";
 
 import "./InfoEmpresa.scss";
 
-export default function InformacionEmpresa() {
+export default function InformacionEmpresa(props) {
   return (
     <Layout className="info-empresa">
       <Row className="info-empresa__row-alta">
@@ -18,7 +18,7 @@ export default function InformacionEmpresa() {
       </Row>
       <Row className="info-empresa__fondo">
         <Row className="info-empresa__row">
-          <InfoEmpresa />
+          <InfoEmpresa empresa={props.location.row.empresa} />
         </Row>
       </Row>
       <Row className="info-empresa__row"></Row>
