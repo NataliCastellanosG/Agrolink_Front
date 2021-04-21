@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import { Row, Col, Layout, Menu, Typography } from "antd";
 
 import Logo from "../assets/img/png/LOGO_FINAL.png";
@@ -40,7 +40,9 @@ export default function LayoutBasic({ routes }) {
               <Menu.Item key="1">INICIO</Menu.Item>
               <Menu.Item key="2">PRODUCTOS</Menu.Item>
               <Menu.Item key="3">PROVEEDORES</Menu.Item>
-              <Menu.Item key="4"></Menu.Item>
+              <Menu.Item key="4">
+                <Link to={"/activo"}> PERFIL</Link>
+              </Menu.Item>
             </Menu>
           </Col>
         </Header>

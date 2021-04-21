@@ -29,4 +29,29 @@
       }
     }
   }
+
+  &__content {
+    padding: 50px;
+    width: 100%;
+    height: 100%;
+    &-titulo {
+      width: 100%;
+      height: 20%;
+      text-align: center;
+      font-family: Roboto;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 5px;
+    }
+    &-info {
+      width: 100%;
+      height: 80%;
+      text-align: center;
+      font-family: Roboto;
+      font-size: 20px;
+      letter-spacing: 5px;
+      padding-bottom: 25px;
+      line-height: 60px;
+    }
+  }
 }

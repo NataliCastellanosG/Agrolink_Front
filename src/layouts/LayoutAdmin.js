@@ -2,8 +2,6 @@ import React from "react";
 import { Link, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { Button, Col, Dropdown, Layout, Menu, Row, Typography } from "antd";
 
-//import MenuTop from '../components/Admin/MenuTop';
-//import MenuSider from '../components/Admin/MenuSider';
 import Logo from "../assets/img/png/LOGO_FINAL.png";
 
 import useAuth from "../hooks/useAuth";
@@ -23,33 +21,6 @@ function LayoutAdmin(props) {
     window.location.href = "/";
   };
 
-  const menu = (
-    <Menu className="layout-admin__menu-right-dropdown">
-      <Menu.Item>
-        <Link
-          to={{
-            pathname: "/activo/proveedor",
-          }}
-        >
-          <Typography
-            component={"span"}
-            className="layout-admin__menu-right-dropdown-item"
-          >
-            VER PERFIL
-          </Typography>
-        </Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link
-          onClick={logoutEmpresa}
-          className="layout-admin__menu-right-dropdown-item"
-        >
-          <Typography component={"span"}>CERRAR SESIÓN</Typography>
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
-
   if (!empresa && !isloading) {
     return (
       <>
@@ -59,6 +30,31 @@ function LayoutAdmin(props) {
     );
   }
   if (empresa && !isloading) {
+    const menu = (
+      <Menu className="layout-admin__menu-right-dropdown">
+        <Menu.Item>
+          <Link to={"/activo/proveedor"}>
+            <Typography
+              component={"span"}
+              className="layout-admin__menu-right-dropdown-item"
+            >
+              VER PERFIL
+            </Typography>
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link
+            onClick={logoutEmpresa}
+            className="layout-admin__menu-right-dropdown-item"
+          >
+            <Typography component={"span"}>CERRAR SESIÓN</Typography>
+          </Link>
+        </Menu.Item>
+      </Menu>
+    );
+
+    localStorage.setItem("id", empresa.id);
+    console.log(localStorage.getItem("id"));
     if (empresa.rol === "comprador") {
       return (
         <Layout className="layout-admin">

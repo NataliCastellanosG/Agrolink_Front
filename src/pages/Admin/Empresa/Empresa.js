@@ -7,9 +7,7 @@ import { Link, Redirect } from "react-router-dom";
 
 import "./Empresa.scss";
 
-export default function Empresa(props) {
-  const { id } = props;
-
+export default function Empresa() {
   return (
     <Layout className="empresa">
       <Row className="empresa__row-alta">
@@ -24,10 +22,7 @@ export default function Empresa(props) {
         <Row className="empresa__row">
           <Col span={12} className="empresa__col">
             <Link
-              to={{
-                pathname: "/activo/informacionProveedor",
-                row: { id },
-              }}
+              to={"/activo/informacionProveedor"}
               className="empresa__col-button"
             >
               <Typography variant="h1" className="empresa__col-button-h1">

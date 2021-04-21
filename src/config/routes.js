@@ -6,7 +6,7 @@ import LayoutBasic from "../layouts/LayoutBasic";
 import AdminHome from "../pages/Admin/Home";
 import AdminSignIn from "../pages/Admin/SignIn";
 import AdminEmpresa from "../pages/Admin/Empresa";
-import AdminInfo from "../components/Admin/InfoEmpresa";
+import AdminInfo from "../pages/Admin/Empresa/Informacion";
 //Users pages
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
