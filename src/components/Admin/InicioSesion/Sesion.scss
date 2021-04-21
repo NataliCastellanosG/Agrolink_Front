@@ -1,0 +1,91 @@
+@import "../../../scss/index.scss";
+
+.sesion-form {
+  padding: 50px;
+  font-family: Roboto;
+  letter-spacing: 2px;
+  justify-content: center;
+
+  &__input {
+    font-family: Roboto;
+    letter-spacing: 2px;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+
+    .ant-input-prefix {
+      i {
+        font-size: 0em + 22px / $defaultFontSize;
+      }
+    }
+
+    input {
+      font-family: Roboto;
+      letter-spacing: 2px;
+      width: 100%;
+      font-size: 0em + 16px / $defaultFontSize;
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .ant-input-affix-wrapper:hover {
+    border-color: $primary-color;
+    text-align: left;
+  }
+
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: $primary-color;
+    text-align: left;
+  }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+    text-align: left;
+  }
+  .ant-upload.ant-upload-select {
+    width: 100%;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+  }
+
+  .ant-btn {
+    color: rgba(0, 0, 0, 0.3);
+    font-family: Roboto;
+    letter-spacing: 2px;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+  }
+
+  .ant-btn:active {
+    color: rgba(0, 0, 0, 0.3);
+    background: $primary-color;
+    border-color: $primary-color;
+  }
+
+  &__button {
+    background-color: $primary-color;
+    font-size: 18px;
+    font-weight: bolder;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+    width: 200px;
+    height: 50px;
+
+    span {
+      color: $font-dark-light;
+    }
+  }
+
+  &__texto {
+    text-align: right;
+    margin: 0px 0px 50px 0px;
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../../scss/index.scss";
+
+.home {
+  transition: margin-left 0.2s;
+  height: 100%;
+
+  &__fondo {
+    background-image: url("../../../assets/img/jpg/Fondo_Base.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 700px;
+  }
+
+  &__content {
+    background-color: #fff;
+    padding: 0px;
+    height: 715px;
+    align-items: center;
+  }
+
+  &__row {
+    background-color: #fff;
+    height: 20px;
+    width: 100%;
+  }
+}

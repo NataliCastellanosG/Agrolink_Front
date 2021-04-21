@@ -1,0 +1,126 @@
+@import "../scss/index.scss";
+
+.layout-basic {
+  transition: margin-left 0.2s;
+
+  &__img {
+    background-image: url("../assets/img/png/franja_1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 32px;
+    width: 100%;
+  }
+
+  &__header {
+    background-color: $background-light;
+    position: initial;
+    width: 100%;
+    display: flex;
+    padding: 0;
+    height: 130px;
+    width: 100%;
+  }
+
+  &__menu {
+    background-color: $background-light;
+    vertical-align: top;
+
+    &-logo {
+      width: 100px;
+      height: 85px;
+      margin: 25px 10px 0px 84px;
+    }
+
+    &-title {
+      margin-top: 40px;
+      font-family: Roboto;
+      color: #508d3d;
+
+      &-h1 {
+        font-family: Roboto;
+        font-size: 21px;
+        font-weight: bolder;
+        letter-spacing: 10px;
+        color: #508d3d;
+        height: 25px;
+      }
+
+      &-h2 {
+        font-family: Roboto;
+        font-size: 19px;
+        font-weight: lighter;
+        letter-spacing: 10px;
+        color: #508d3d;
+        height: 20px;
+      }
+    }
+
+    &-right {
+      //position: absolute;
+      right: 0;
+      margin: 40px 0px 0px 0px;
+      justify-items: right;
+      right: 0;
+
+      &-items {
+        align-items: right;
+        font-family: Roboto;
+        font-size: 15px;
+        letter-spacing: 10px;
+        padding: 0px 0px 0px 210px;
+      }
+    }
+  }
+
+  &__fondo {
+    background-image: url("../assets/img/jpg/Fondo_Base.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 715px;
+  }
+
+  &__content {
+    padding: 100px 100px 100px 100px;
+    margin: 0px 0px 200px 0px;
+    align-items: center;
+  }
+
+  &__footer {
+    background-color: #fff;
+    padding: 0px;
+
+    &-row {
+      height: 20px;
+      width: 100%;
+    }
+
+    &-img {
+      margin-top: 32px;
+      background-image: url("../assets/img/png/franja_3.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      height: 40px;
+      width: 100%;
+    }
+  }
+
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
+    color: #508d3d;
+    border-bottom: 2px solid #508d3d;
+  }
+
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+    margin: 0px 30px 0px 0px;
+  }
+}

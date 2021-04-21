@@ -1,0 +1,244 @@
+import React from 'react';
+import { Link, Redirect, Route, Switch} from 'react-router-dom';
+import { Button, Col, Dropdown, Layout, Menu, Row, Typography} from 'antd';
+
+
+//import MenuTop from '../components/Admin/MenuTop';
+//import MenuSider from '../components/Admin/MenuSider';
+import Logo from '../assets/img/png/LOGO_FINAL.png';
+
+import useAuth from '../hooks/useAuth';
+import {logout} from '../api/auth';
+import AdminSignIn from '../pages/Admin/SignIn';
+
+import "./LayoutAdmin.scss";
+
+
+export default function LayoutAdmin({routes}){
+
+    console.log(routes);
+
+    const { Header, Content, Footer } = Layout;
+    const {empresa, isloading} = useAuth();
+
+    const logoutEmpresa = ()=>{
+        logout();
+        window.location.href ="/";
+    }
+    const menu = (
+        <Menu className="layout-admin__menu-right-dropdown">
+            <Menu.Item key="1">
+            <a style={{textAlign: "right"}} type="link" rel="noopener noreferrer" href="/admin/proveedor">
+                    CERRAR SESIÓN
+                </a>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <a style={{textAlign: "right"}} type="link" rel="noopener noreferrer" onClick={logoutEmpresa}>
+                    CERRAR SESIÓN
+                </a>
+            </Menu.Item>
+        </Menu>
+    );
+
+    
+    return(
+        <Layout>
+            <h2>menu</h2>
+            <Layout>
+                <Content>
+                    <LoadRoutes routes={routes}/>
+                </Content>
+            </Layout>
+            <h5>footer</h5>
+        </Layout>
+    );
+
+    /*if(!empresa && !isloading){
+        return(
+            <>
+            <Route path="/admin/login" component={AdminSignIn}/>
+            <Redirect to="/admin/login"/>
+            </>
+        );
+    }
+    if(empresa && !isloading ){*/
+        
+        /*if(empresa.rol === "comprador"){
+            return(
+                <Layout className="layout-admin">
+                    <Row>
+                        <Col span={24} className="layout-admin__img">
+                        </Col>
+                        <Header className="layout-admin__header">
+                            <Col flex="auto" style={{padding:"0px 0px 0px 45px"}}>
+                                    <img className="layout-admin__menu-logo" src={Logo} alt="Logo Plaza Mercado"  />                                      
+                            </Col>
+                            <Col span={10}>
+                                <Typography.Paragraph className="layout-admin__menu-title">
+                                    <Typography variant="h1" className="layout-admin__menu-title-h1">AGROLINK B2B</Typography>
+                                    <Typography variant="h2" className="layout-admin__menu-title-h2">MARCKETPLACE</Typography>
+                                </Typography.Paragraph>
+                            </Col>
+                            <Col span={11} className="layout-admin__menu-right">
+                                <Menu className="layout-admin__menu-right-itemsComprador" mode="horizontal" defaultSelectedKeys={['2']}>
+                                    <Menu.Item key="1">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            INICIO
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="2">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            PRODUCTOS
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="3">  
+                                        <Dropdown overlay={menu} ><a> PROVEEDORES</a></Dropdown>
+                                    </Menu.Item>
+                                    <Menu.Item key="4">  
+                                        <Dropdown overlay={menu} ><a> PERFIL</a></Dropdown>
+                                    </Menu.Item>
+                                </Menu>
+                            </Col>    
+                        </Header>
+                    </Row>
+                    <Content>
+                        <LoadRoutes routes= {routes}/>
+                    </Content>
+                    <Row style={{background:"#fff"}}>
+                        <Col span={24} className="layout-admin__footer-row">
+                        </Col>
+                    </Row>
+                    <Footer className="layout-admin__footer">
+                        <Row>
+                            <Col span={24} className="layout-admin__footer-img">
+                            </Col>
+                        </Row>
+                    </Footer>
+                </Layout>
+            );
+        } else if(empresa.rol === "vendedor"){
+            return(
+                <Layout className="layout-admin">
+                    <Row>
+                        <Col span={24} className="layout-admin__img">
+                        </Col>
+                        <Header className="layout-admin__header">
+                            <Col flex="auto" style={{padding:"0px 0px 0px 45px"}}>
+                                    <img className="layout-admin__menu-logo" src={Logo} alt="Logo Plaza Mercado"  />                                      
+                            </Col>
+                            <Col span={10}>
+                                <Typography.Paragraph className="layout-admin__menu-title">
+                                    <Typography variant="h1" className="layout-admin__menu-title-h1">AGROLINK B2B</Typography>
+                                    <Typography variant="h2" className="layout-admin__menu-title-h2">MARCKETPLACE</Typography>
+                                </Typography.Paragraph>
+                            </Col>
+                            <Col span={11} className="layout-admin__menu-right">
+                                <Menu className="layout-admin__menu-right-itemsVendedor" mode="horizontal" defaultSelectedKeys={['2']}>
+                                    <Menu.Item key="1">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            INICIO
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="2">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            PRODUCTOS
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="3">  
+                                        <Dropdown overlay={menu} ><a>PERFIL</a></Dropdown>
+                                    </Menu.Item>
+                                </Menu>
+                            </Col>    
+                        </Header>
+                    </Row>
+                    <Content >
+                        <LoadRoutes routes= {routes}/>
+                    </Content>
+                    <Row style={{background:"#fff"}}>
+                        <Col span={24} className="layout-admin__footer-row">
+                        </Col>
+                    </Row>
+                    <Footer className="layout-admin__footer">
+                        <Row>
+                            <Col span={24} className="layout-admin__footer-img">
+                            </Col>
+                        </Row>
+                    </Footer>
+                </Layout>
+            );
+        
+        }else {
+            return(
+                <Layout className="layout-admin">
+                    <Row>
+                        <Col span={24} className="layout-admin__img">
+                        </Col>
+                        <Header className="layout-admin__header">
+                            <Col flex="auto" style={{padding:"0px 0px 0px 45px"}}>
+                                    <img className="layout-admin__menu-logo" src={Logo} alt="Logo Plaza Mercado"  />                                      
+                            </Col>
+                            <Col span={10}>
+                                <Typography.Paragraph className="layout-admin__menu-title">
+                                    <Typography variant="h1" className="layout-admin__menu-title-h1">AGROLINK B2B</Typography>
+                                    <Typography variant="h2" className="layout-admin__menu-title-h2">MARCKETPLACE</Typography>
+                                </Typography.Paragraph>
+                            </Col>
+                            <Col span={11} className="layout-admin__menu-right">
+                                <Menu className="layout-admin__menu-right-itemsVendedor" mode="horizontal" defaultSelectedKeys={['2']}>
+                                    <Menu.Item key="1">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            INICIO
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="2">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            PROVEEDORES
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="3">
+                                        <a type="link" rel="noopener noreferrer" href="/admin">
+                                            VENDEDORES
+                                        </a>
+                                    </Menu.Item>
+                                    <Menu.Item key="4">  
+                                        <Dropdown overlay={menu} ><a> PERFIL</a></Dropdown>
+                                    </Menu.Item>
+                                </Menu>
+                            </Col>    
+                        </Header>
+                    </Row>
+                    <Content>
+                        <LoadRoutes routes= {routes}/>
+                    </Content>
+                    <Row style={{background:"#fff"}}>
+                        <Col span={24} className="layout-admin__footer-row">
+                        </Col>
+                    </Row>
+                    <Footer className="layout-admin__footer">
+                        <Row>
+                            <Col span={24} className="layout-admin__footer-img">
+                            </Col>
+                        </Row>
+                    </Footer>
+                </Layout>
+            );
+        }
+    }
+    return null;*/
+}
+
+function LoadRoutes({routes}){
+
+    return (
+        <Switch>
+            {routes.map((route, index)=> (
+                <Route
+                    key={index}
+                    path = {route.path}
+                    exact = {route.exact}
+                    component = {route.component}
+                />
+            ))}
+        </Switch>
+    );
+}
