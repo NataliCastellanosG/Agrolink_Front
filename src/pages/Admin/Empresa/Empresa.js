@@ -10,10 +10,11 @@ import { mostrarEmpresa } from "../../../api/empresa";
 
 import "./Empresa.scss";
 
-export default function Empresa() {
+export default function Empresa(props) {
+  var id = props.location.row;
+
   const [empresa, setEmpresa] = useState();
   const token = getAccessTokenApi();
-  var id = localStorage.getItem("id");
 
   useEffect(() => {
     mostrarEmpresa(token, id).then((response) => {
@@ -47,11 +48,17 @@ export default function Empresa() {
             </Link>
           </Col>
           <Col span={12} className="empresa__col">
-            <Button type="link" className="empresa__col-button">
+            <Link
+              to={{
+                pathname: "/activo/registrarProducto",
+                row: id,
+              }}
+              className="empresa__col-button"
+            >
               <Typography variant="h1" className="empresa__col-button-h1_2">
                 PRODUCTOS
               </Typography>
-            </Button>
+            </Link>
           </Col>
         </Row>
       </Row>

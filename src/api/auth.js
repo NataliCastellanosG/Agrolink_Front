@@ -52,7 +52,6 @@ export function refreshAccessTokenApi(refreshToken) {
 export function logout() {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
-  localStorage.removeItem("id");
 }
 
 function willExpireToken(token) {

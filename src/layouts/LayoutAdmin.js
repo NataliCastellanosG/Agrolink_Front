@@ -33,7 +33,7 @@ function LayoutAdmin(props) {
     const menu = (
       <Menu className="layout-admin__menu-right-dropdown">
         <Menu.Item>
-          <Link to={"/activo/proveedor"}>
+          <Link to={{ pathname: "/activo/proveedor", row: empresa.id }}>
             <Typography
               component={"span"}
               className="layout-admin__menu-right-dropdown-item"
@@ -52,8 +52,6 @@ function LayoutAdmin(props) {
         </Menu.Item>
       </Menu>
     );
-
-    localStorage.setItem("id", empresa.id);
 
     if (empresa.rol === "comprador") {
       return (
