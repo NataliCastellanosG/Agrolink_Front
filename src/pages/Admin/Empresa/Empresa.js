@@ -50,7 +50,7 @@ export default function Empresa(props) {
           <Col span={12} className="empresa__col">
             <Link
               to={{
-                pathname: "/activo/registrarProducto",
+                pathname: "/activo/proveedorProductos",
                 row: id,
               }}
               className="empresa__col-button"

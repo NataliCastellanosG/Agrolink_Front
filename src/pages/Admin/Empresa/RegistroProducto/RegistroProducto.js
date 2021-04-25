@@ -12,7 +12,9 @@ export default function RegistrarProducto(props) {
       <Row className="registro-producto__row"></Row>
       <Row className="registro-producto__fondo">
         <Row className="registro-producto__fondo-contenido">
-          {/*<RegistroProducto empresaid={props.location.row} />*/}
+          <Row className="registro-producto__fondo-row-contenido">
+            <RegistroProducto empresaid={props.location.row} />
+          </Row>
         </Row>
       </Row>
       <Row className="registro-producto__row"></Row>

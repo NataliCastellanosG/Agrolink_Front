@@ -1,11 +1,11 @@
 @import "../../../../scss/index.scss";
 
-.info-empresa {
+.productos {
   background: #fff;
 
   &__row {
     &-alta {
-      height: 130px;
+      height: 80px;
       width: 100%;
 
       &-medio {
@@ -35,12 +35,13 @@
   }
 
   &__fondo {
-    background-image: url("../../../../assets/img/jpg/FONDO_6.jpg");
+    background-image: url("../../../../assets/img/png/FONDO_7_8_9.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
+    height: 630px;
   }
 
   &__row-contenido {

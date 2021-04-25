@@ -17,11 +17,11 @@ export default function InformacionEmpresa(props) {
         </Col>
       </Row>
       <Row className="info-empresa__fondo">
-        <Row className="info-empresa__row">
+        <Row className="info-empresa__row-contenido">
           <InfoEmpresa empresa={props.location.row.empresa} />
         </Row>
       </Row>
-      <Row className="info-empresa__row"></Row>
+      <Row className="info-empresa__row-bajo"></Row>
     </Layout>
   );
 }

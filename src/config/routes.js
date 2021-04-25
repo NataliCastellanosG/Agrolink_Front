@@ -7,6 +7,8 @@ import AdminHome from "../pages/Admin/Home";
 import AdminSignIn from "../pages/Admin/SignIn";
 import AdminEmpresa from "../pages/Admin/Empresa";
 import AdminInfo from "../pages/Admin/Empresa/Informacion";
+import AdminRegistroProducto from "../pages/Admin/Empresa/RegistroProducto";
+import AdminProductos from "../pages/Admin/Empresa/Productos";
 //Users pages
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
@@ -38,6 +40,16 @@ const routes = [
       {
         path: "/activo/informacionProveedor",
         component: AdminInfo,
+        exact: true,
+      },
+      {
+        path: "/activo/registrarProducto",
+        component: AdminRegistroProducto,
+        exact: true,
+      },
+      {
+        path: "/activo/proveedorProductos",
+        component: AdminProductos,
         exact: true,
       },
       {
