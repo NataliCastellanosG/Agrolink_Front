@@ -29,20 +29,20 @@
     &-logo {
       width: 100px;
       height: 85px;
-      margin: 25px 10px 0px 84px;
+      margin: 25px 10px 0px 55px;
     }
 
     &-title {
       margin-top: 40px;
       font-family: Roboto;
-      color: #508d3d;
+      color: $primary-color-hover;
 
       &-h1 {
         font-family: Roboto;
         font-size: 21px;
         font-weight: bolder;
         letter-spacing: 10px;
-        color: #508d3d;
+        color: $primary-color-hover;
         height: 25px;
       }
 
@@ -51,24 +51,25 @@
         font-size: 19px;
         font-weight: lighter;
         letter-spacing: 10px;
-        color: #508d3d;
+        color: $primary-color-hover;
         height: 20px;
       }
     }
 
     &-right {
-      position: absolute;
+      position: relative;
       right: 0;
-      margin: 40px 0px 0px 0px;
+      margin: 40px 0px 0px 200px;
       justify-items: right;
       right: 0;
 
       &-items {
+        position: absolute;
         align-items: right;
         font-family: Roboto;
         font-size: 15px;
         letter-spacing: 10px;
-        padding: 0px 0px 0px 210px;
+        padding: 0px 0px 0px 10px;
       }
     }
   }

@@ -44,9 +44,69 @@
     height: 630px;
   }
 
-  &__row-contenido {
-    width: 55%;
+  &__row-contenido_1 {
+    width: 30%;
     height: 100%;
+    position: relative;
+
+    &-boton {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 17% 0% 0% 12%;
+      position: absolute;
+      width: 72%;
+      height: 67%;
+      background-color: #fff;
+      border-radius: 50%;
+      background-image: url("../../../../assets/img/jpg/Recurso_1.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      vertical-align: middle;
+
+      .ant-typography {
+        color: #fff;
+        overflow-wrap: break-word;
+        text-align: center;
+        font-family: Roboto;
+        font-size: 35px;
+        font-weight: 500;
+        letter-spacing: 5px;
+      }
+    }
+  }
+  &__row-contenido_2 {
+    width: 70%;
+    height: 100%;
+
+    &-titulo {
+      width: 100%;
+      height: 25%;
+      justify-content: center;
+      padding-top: 4%;
+
+      .ant-typography {
+        color: #fff;
+        overflow-wrap: break-word;
+        text-align: center;
+        vertical-align: bottom;
+        font-family: Roboto;
+        font-size: 50px;
+        font-weight: 900;
+        letter-spacing: 5px;
+        text-shadow: 5px 5px 5px lightslategrey;
+      }
+    }
+
+    &-lista {
+      width: 100%;
+      height: 75%;
+      margin-top: 0px;
+    }
   }
   &__col {
     height: 100%;

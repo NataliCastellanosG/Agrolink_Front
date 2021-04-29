@@ -1,19 +1,39 @@
-import React from "react";
-import { Layout, Row, Typography } from "antd";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Col, Layout, Row, Typography } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 
+import ModalFront from "../../Modal";
+import EditarEmpresaForm from "../EditarEmpresa";
 import "./InformacionEmpresa.scss";
 
 export default function Informacion(props) {
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(null);
   const { empresa } = props;
-  console.log("empresa", props.empresa._id);
-  console.log("empresa2", empresa);
+
+  const editarEmpresa = (emp) => {
+    setIsVisibleModal(true);
+    setModalTitle("Modificar ficha técnica");
+    setModalContent("esto es una prueba");
+    console.log(isVisibleModal, modalTitle, modalContent);
+  };
+
   return (
     <Layout className="informacion">
       <Row className="informacion__row-alta"></Row>
       <Row className="informacion__row-medio">
-        <Typography variant="h1" className="informacion__row-medio-h1">
-          FICHA TÉCNICA
-        </Typography>
+        <Col span={22}>
+          <Typography variant="h1" className="informacion__row-medio-h1">
+            FICHA TÉCNICA
+          </Typography>
+        </Col>
+        <Col span={2}>
+          <Link onClick={() => editarEmpresa(empresa)}>
+            <EditOutlined className="informacion__row-medio-icono" />
+          </Link>
+        </Col>
       </Row>
       <Row className="informacion__content">
         <Typography variant={"h1"} className="informacion__content-titulo">
@@ -37,6 +57,14 @@ export default function Informacion(props) {
           <b>Reseña:</b> {empresa.resena}
         </Typography.Paragraph>
       </Row>
+
+      <ModalFront
+        title={modalTitle}
+        isVisible={isVisibleModal}
+        setIsVisible={setIsVisibleModal}
+      >
+        {modalContent}
+      </ModalFront>
     </Layout>
   );
 }

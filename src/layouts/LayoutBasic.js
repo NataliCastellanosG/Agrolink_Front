@@ -14,7 +14,7 @@ export default function LayoutBasic({ routes }) {
       <Row>
         <Col span={24} className="layout-basic__img"></Col>
         <Header className="layout-basic__header">
-          <Col flex="auto" style={{ padding: "0px 0px 0px 45px" }}>
+          <Col span={2}>
             <img
               className="layout-basic__menu-logo"
               src={Logo}
