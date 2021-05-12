@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 //import InfoEmpresa from '../../../components/Admin/InfoEmpresa';
 
 import { getAccessTokenApi } from "../../../api/auth";
-import { mostrarEmpresa } from "../../../api/empresa";
+import { mostrarEmpresaApi } from "../../../api/empresa";
 import {
   mostrarProductosActivos,
   mostrarProductosInactivos,
 } from "../../../api/producto";
+import { mostrarAsociacionesApi } from "../../../api/asociacion";
 
 import "./Empresa.scss";
 
@@ -20,10 +21,11 @@ export default function Empresa(props) {
   const [empresa, setEmpresa] = useState();
   const [productosActivos, setProductosActivos] = useState([]);
   const [productosInactivos, setProductosInactivos] = useState([]);
+  const [asociaciones, setAsociaciones] = useState([]);
   const token = getAccessTokenApi();
 
   useEffect(() => {
-    mostrarEmpresa(token, id).then((response) => {
+    mostrarEmpresaApi(token, id).then((response) => {
       setEmpresa(response.empresa);
     });
   }, [token, id]);
@@ -36,6 +38,12 @@ export default function Empresa(props) {
       setProductosInactivos(response);
     });
   }, [token, id]);
+
+  useEffect(() => {
+    mostrarAsociacionesApi(token, true).then((response) => {
+      setAsociaciones(response.asociaciones);
+    });
+  }, [token]);
 
   return (
     <Layout className="empresa">
@@ -53,7 +61,7 @@ export default function Empresa(props) {
             <Link
               to={{
                 pathname: "/activo/informacionProveedor",
-                row: { empresa },
+                row: { empresa, asociaciones },
               }}
               className="empresa__col-button"
             >

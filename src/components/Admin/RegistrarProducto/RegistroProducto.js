@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Col,
@@ -12,23 +12,26 @@ import {
 } from "antd";
 import {
   BarcodeOutlined,
+  CalendarOutlined,
   BorderlessTableOutlined,
   DollarCircleOutlined,
   GoldOutlined,
-  IdcardOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
 
+import { useDropzone } from "react-dropzone";
 import { minLengthValidation } from "../../../utils/formValidation";
 import { registrarProductoApi } from "../../../api/producto";
 
 import "./RegistroProducto.scss";
 
 export default function RegisterForm(props) {
+  const [imagen, setImagen] = useState(null);
   const [inputs, setInputs] = useState({
     empresaid: props.empresaid,
     nombre: "",
     descripcion: "",
+    imagen: "",
     unidad_venta: "",
     precio: "",
     cantidad: "",
@@ -39,6 +42,7 @@ export default function RegisterForm(props) {
     nombre: false,
     descripcion: false,
     unidad_venta: false,
+    imagen: false,
     precio: false,
     cantidad: false,
     fecha_entrega: false,
@@ -59,10 +63,18 @@ export default function RegisterForm(props) {
     }
   };
 
+  useEffect(() => {
+    if (imagen) {
+      setInputs({ ...inputs, imagen });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imagen]);
+
   const registrarProducto = async (e) => {
     const empresaidVal = props.empresaid;
     const nombreVal = inputs.nombre;
     const descripcionVal = inputs.descripcion;
+    const imagenVal = inputs.imagen;
     const unidad_ventaVal = inputs.unidad_venta;
     const precioVal = inputs.precio;
     const cantidadVal = inputs.cantidad;
@@ -72,6 +84,7 @@ export default function RegisterForm(props) {
       !empresaidVal ||
       !nombreVal ||
       !descripcionVal ||
+      !imagenVal ||
       !unidad_ventaVal ||
       !precioVal ||
       !cantidadVal ||
@@ -101,6 +114,7 @@ export default function RegisterForm(props) {
     setInputs({
       nombre: "",
       descripcion: "",
+      imagen: "",
       unidad_venta: "",
       precio: "",
       cantidad: "",
@@ -110,6 +124,7 @@ export default function RegisterForm(props) {
     setFormValid({
       nombre: false,
       descripcion: false,
+      imagen: false,
       unidad_venta: false,
       precio: false,
       cantidad: false,
@@ -170,6 +185,18 @@ export default function RegisterForm(props) {
                     onChange={inputValidation}
                     value={inputs.descripcion}
                   />
+                </Tooltip>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col className="gutter-row" span={24}>
+              <Form.Item>
+                <Tooltip
+                  placement="right"
+                  title="Debe cargar la imagen del producto"
+                >
+                  <CargarImagen imagen={imagen} setImagen={setImagen} />
                 </Tooltip>
               </Form.Item>
             </Col>
@@ -258,7 +285,7 @@ export default function RegisterForm(props) {
                     name="fecha_entrega"
                     size="large"
                     prefix={
-                      <IdcardOutlined style={{ color: "rgba(0,0,0,0.25)" }} />
+                      <CalendarOutlined style={{ color: "rgba(0,0,0,0.25)" }} />
                     }
                     placeholder="Días hábiles en los que se genera la entrega, ej. 10 días hábiles"
                     className="form-producto__content-register-form-input"
@@ -284,5 +311,40 @@ export default function RegisterForm(props) {
         </Form>
       </Row>
     </Layout>
+  );
+}
+
+function CargarImagen(props) {
+  const { imagen, setImagen } = props;
+
+  const onDrop = useCallback(
+    (acceptedFile) => {
+      const file = acceptedFile[0];
+      setImagen(file);
+    },
+    [setImagen]
+  );
+
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+    noKeyboard: true,
+    accept: ".jpeg,.png",
+    maxFiles: 1,
+    onDrop,
+  });
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>{file.path}</li>
+  ));
+
+  return (
+    <section>
+      <div {...getRootProps({ className: "upload" })}>
+        <input {...getInputProps({})} />
+        <p>Imagen</p>
+      </div>
+      <aside>
+        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+      </aside>
+    </section>
   );
 }

@@ -5,6 +5,20 @@
   background-color: $background-light;
   margin: 50px 130px 70px 100px;
 
+  .upload {
+    width: 100%;
+    display: table;
+    margin: 0 auto;
+    border-style: dashed;
+    color: rgba(0, 0, 0, 0.3);
+    font-family: Roboto;
+    letter-spacing: 2px;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
   &__row {
     &-alta {
       height: 30px;

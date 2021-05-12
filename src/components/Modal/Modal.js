@@ -1,18 +1,27 @@
 import React from "react";
-import { Modal } from "antd";
+import { Modal as ModalAntd } from "antd";
 
-export default function ModalFront(props) {
-  const { children, title, isVisible, setIsVisible } = props;
+export default function Modal(props) {
+  const { children, title, isVisible, setIsVisible, ...other } = props;
+  const handleOk = () => {
+    setIsVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsVisible(false);
+  };
 
   return (
-    <Modal
+    <ModalAntd
       title={title}
       centered
       visible={isVisible}
-      onCancel={() => setIsVisible(false)}
       footer={false}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      {...other}
     >
       {children}
-    </Modal>
+    </ModalAntd>
   );
 }

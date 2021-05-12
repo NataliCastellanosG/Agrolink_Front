@@ -1,10 +1,83 @@
 @import "../../../scss/index.scss";
 
-.register-form {
+.editar-form {
   font-family: Roboto;
   letter-spacing: 2px;
   justify-content: center;
+  width: 100%;
+  background-color: $background-light;
+  text-align: center;
 
+  .upload {
+    width: 100%;
+    display: table;
+    margin: 0 auto;
+    border-style: dashed;
+    font-family: Roboto;
+    color: rgba(0, 0, 0, 0.25);
+    letter-spacing: 2px;
+    font-weight: 600;
+    border-radius: 15px;
+    border-color: $primary-color;
+    border-width: 3px;
+    padding: 10px;
+    margin-bottom: 20px;
+
+    &__modal {
+      .ant-modal-content {
+        width: 800px;
+        border-radius: 30px;
+      }
+
+      .ant-modal-header {
+        background-color: #f4e995;
+        border-radius: 30px 30px 0px 0px;
+        height: 50px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .ant-modal-title {
+        font-family: Roboto;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        color: #5b5b5b;
+        text-align: center;
+        height: 70px;
+        margin-bottom: 5px;
+      }
+
+      .ant-modal-body {
+        padding: 24px;
+        font-size: 14px;
+        line-height: 1.5715;
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  &__titulo {
+    background-color: #f4e995;
+    height: 40px;
+    width: 100%;
+    justify-content: center;
+
+    &-h1 {
+      font-family: Roboto;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: #5b5b5b;
+      text-align: center;
+      height: 70px;
+      margin-bottom: 5px;
+    }
+  }
+  .ant-modal-content {
+    border-radius: 30px;
+    padding: 0px;
+  }
   .ant-row {
     margin-bottom: 10px;
   }

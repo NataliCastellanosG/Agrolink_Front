@@ -18,7 +18,10 @@ export default function InformacionEmpresa(props) {
       </Row>
       <Row className="info-empresa__fondo">
         <Row className="info-empresa__row-contenido">
-          <InfoEmpresa empresa={props.location.row.empresa} />
+          <InfoEmpresa
+            empresa={props.location.row.empresa}
+            asociaciones={props.location.row.asociaciones}
+          />
         </Row>
       </Row>
       <Row className="info-empresa__row-bajo"></Row>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Checkbox,
@@ -7,6 +7,7 @@ import {
   Form,
   notification,
   Row,
+  Select,
   Tooltip,
 } from "antd";
 import {
@@ -20,16 +21,19 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-
 import {
   emailValidation,
   minLengthValidation,
 } from "../../../utils/formValidation";
+import { useDropzone } from "react-dropzone";
+
 import { signUpApi } from "../../../api/empresa";
 
 import "./RegistroEmpresa.scss";
 
 export default function RegisterForm() {
+  const [camara_comercio, setCamara_comercio] = useState(null);
+  const [rut, setRut] = useState(null);
   const [inputs, setInputs] = useState({
     asociacion: "",
     rol: "",
@@ -41,6 +45,8 @@ export default function RegisterForm() {
     departamento: "",
     municipio: "",
     direccion_empresa: "",
+    camara_comercio: "",
+    rut: "",
     resena: "",
     video_presentacion: "",
     contrasena: "",
@@ -59,6 +65,8 @@ export default function RegisterForm() {
     departamento: false,
     municipio: false,
     direccion_empresa: false,
+    camara_comercio: false,
+    rut: false,
     resena: false,
     video_presentacion: false,
     contrasena: false,
@@ -100,9 +108,21 @@ export default function RegisterForm() {
     }
   };
 
+  useEffect(() => {
+    if (camara_comercio) {
+      setInputs({ ...inputs, camara_comercio });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [camara_comercio]);
+
+  useEffect(() => {
+    if (rut) {
+      setInputs({ ...inputs, rut });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rut]);
+
   const registrarEmpresa = async (e) => {
-    /*const {asociacion, rol, nombre, nit, representante_legal, cedula_representante_legal, correo_electronico, departamento,
-               municipio, direccion_empresa, resena, video_presentacion, contrasena, repeatcontrasena, privacyPolicy} = formValid;*/
     const asociacionVal = inputs.asociacion;
     const rolVal = inputs.rol;
     const nombreVal = inputs.nombre;
@@ -170,6 +190,8 @@ export default function RegisterForm() {
       departamento: "",
       municipio: "",
       direccion_empresa: "",
+      camara_comercio: "",
+      rut: "",
       resena: "",
       video_presentacion: "",
       contrasena: "",
@@ -188,6 +210,8 @@ export default function RegisterForm() {
       departamento: false,
       municipio: false,
       direccion_empresa: false,
+      camara_comercio: false,
+      rut: false,
       resena: false,
       video_presentacion: false,
       contrasena: false,
@@ -288,7 +312,7 @@ export default function RegisterForm() {
                 placeholder="Representante legal"
                 className="register-form__input"
                 onChange={inputValidation}
-                value={inputs.representate_legal}
+                value={inputs.representante_legal}
               />
             </Tooltip>
           </Form.Item>
@@ -389,47 +413,31 @@ export default function RegisterForm() {
         </Col>
       </Row>
 
-      {/*<Row gutter={16}>  RECORDAD QUE SE DEBEN AGREGAR NUEVAMENTO LOS DATOS EN EL ESQUEMA DE LA BASE DE DATOS
-                <Col className="gutter-row" span={16}>
-                    <Form.Item
-                        name="certificado_camara_comercio" 
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Seleccione un archivo',
-                                
-                            }
-                            ]}
-                        valuePropName="file"
-                        getValueFromEvent={normFile}>
-                        <Tooltip placement="right" title="Debe cargar el documento pdf del certificado de Cámara y Comercio de su empresa">
-                            <Upload name="logo" action="/upload.do" listType="text">
-                                <Button style={{width:'100%'}} icon={<UploadOutlined />}>Cargar el certificado de Cámara y Comercio</Button>
-                            </Upload>
-                        </Tooltip>  
-                    </Form.Item>                    
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <Form.Item style={{width:'100%'}}
-                        name="certificado_camara_comercio" 
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Seleccione un archivo',
-                            }
-                            ]}
-                        valuePropName="file"
-                        getValueFromEvent={normFile}>
-                        <Tooltip placement="right" title="Debe cargar el documento pdf del RUT de su empresa">
-                            <Upload  name="logo" action="/upload.do" listType="text">
-                                <Button style={{width:'100%'}}  icon={<UploadOutlined />}>Cargar el RUT</Button>
-                            </Upload>
-                        </Tooltip>
-                    </Form.Item>                    
-                </Col>
-                        </Row>*/}
+      <Row gutter={16}>
+        <Col className="gutter-row" span={12}>
+          <Form.Item>
+            <Tooltip
+              placement="right"
+              title="Debe cargar el documento pdf del certificado de Cámara y Comercio de su empresa"
+            >
+              <CargarCC
+                camara_comercio={camara_comercio}
+                setCamara_comercio={setCamara_comercio}
+              />
+            </Tooltip>
+          </Form.Item>
+        </Col>
+        <Col className="gutter-row" span={12}>
+          <Form.Item>
+            <Tooltip
+              placement="right"
+              title="Debe cargar el documento pdf del certificado de Cámara y Comercio de su empresa"
+            >
+              <CargarRUT rut={rut} setRut={setRut} />
+            </Tooltip>
+          </Form.Item>
+        </Col>
+      </Row>
       <Row gutter={16}>
         <Col className="gutter-row" span={12}>
           <Form.Item>
@@ -525,5 +533,73 @@ export default function RegisterForm() {
         </Col>
       </Row>
     </Form>
+  );
+}
+
+function CargarCC(props) {
+  const { camara_comercio, setCamara_comercio } = props;
+
+  const onDrop = useCallback(
+    (acceptedFile) => {
+      const file = acceptedFile[0];
+      setCamara_comercio({ file, preview: URL.createObjectURL(file) });
+    },
+    [setCamara_comercio]
+  );
+
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+    noKeyboard: true,
+    accept: ".jpeg,.png",
+    maxFiles: 1,
+    onDrop,
+  });
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>{file.path}</li>
+  ));
+
+  return (
+    <section>
+      <div {...getRootProps({ className: "upload" })}>
+        <input {...getInputProps({})} />
+        <p>Carcar Cámara y Comercio</p>
+      </div>
+      <aside>
+        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+      </aside>
+    </section>
+  );
+}
+
+function CargarRUT(props) {
+  const { rut, setRut } = props;
+  const onDrop = useCallback(
+    (acceptedFile) => {
+      const file = acceptedFile[0];
+      setRut({ file, preview: URL.createObjectURL(file) });
+    },
+    [setRut]
+  );
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+    noKeyboard: true,
+    accept: ".jpeg,.png",
+    maxFiles: 1,
+    onDrop,
+  });
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>{file.path}</li>
+  ));
+
+  return (
+    <section>
+      <div {...getRootProps({ className: "upload" })}>
+        <input {...getInputProps({})} />
+        <p>Carcar RUT</p>
+      </div>
+      <aside>
+        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+      </aside>
+    </section>
   );
 }
