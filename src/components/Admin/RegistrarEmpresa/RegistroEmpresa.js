@@ -26,12 +26,13 @@ import {
   minLengthValidation,
 } from "../../../utils/formValidation";
 import { useDropzone } from "react-dropzone";
-
+import Modal from "../../Modal";
 import { signUpApi } from "../../../api/empresa";
-
+import NoDocument from "../../../assets/img/png/documento.png";
 import "./RegistroEmpresa.scss";
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
+  const { asociaciones } = props;
   const [camara_comercio, setCamara_comercio] = useState(null);
   const [rut, setRut] = useState(null);
   const [inputs, setInputs] = useState({
@@ -133,6 +134,8 @@ export default function RegisterForm() {
     const departamentoVal = inputs.departamento;
     const municipioVal = inputs.municipio;
     const direccion_empresaVal = inputs.direccion_empresa;
+    const camara_comercioVal = inputs.camara_comercio;
+    const rutVal = inputs.rut;
     const resenaVal = inputs.resena;
     const contrasenaVal = inputs.contrasena;
     const repeatcontrasenaVal = inputs.repeatcontrasena;
@@ -149,6 +152,8 @@ export default function RegisterForm() {
       !departamentoVal ||
       !municipioVal ||
       !direccion_empresaVal ||
+      !camara_comercioVal ||
+      !rutVal ||
       !resenaVal ||
       !contrasenaVal ||
       !repeatcontrasenaVal ||
@@ -218,7 +223,10 @@ export default function RegisterForm() {
       repeatcontrasena: false,
       privacyPolicy: false,
     });
+    setCamara_comercio(null);
+    setRut(null);
   };
+
   return (
     <Form
       className="register-form"
@@ -232,14 +240,18 @@ export default function RegisterForm() {
               placement="left"
               title="Debe seleccionar la asociación a la que pertence su empresa"
             >
-              <Input
-                name="asociacion"
-                prefix={<TeamOutlined style={{ color: "rgba(0,0,0,0.25)" }} />}
-                placeholder="Nombre de la asociación"
-                className="register-form__input"
-                onChange={inputValidation}
-                value={inputs.asociacion}
-              />
+              <Select
+                name="asociaciones"
+                placeholder="Seleccione una asociación"
+                defaultValue={inputs.asociacion}
+                onChange={(e) => setInputs({ ...inputs, asociacion: e })}
+              >
+                {asociaciones.map((aso) => (
+                  <Select.Option key={aso._id} value={aso._id}>
+                    {aso.nombre}
+                  </Select.Option>
+                ))}
+              </Select>
             </Tooltip>
           </Form.Item>
         </Col>
@@ -538,6 +550,22 @@ export default function RegisterForm() {
 
 function CargarCC(props) {
   const { camara_comercio, setCamara_comercio } = props;
+  const [camara_comercioUrl, setCamara_comercioUrl] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(null);
+
+  useEffect(() => {
+    if (camara_comercio) {
+      if (camara_comercio.preview) {
+        setCamara_comercioUrl(camara_comercio.preview);
+      } else {
+        setCamara_comercioUrl(camara_comercio);
+      }
+    } else {
+      setCamara_comercioUrl(null);
+    }
+  }, [camara_comercio]);
 
   const onDrop = useCallback(
     (acceptedFile) => {
@@ -546,17 +574,25 @@ function CargarCC(props) {
     },
     [setCamara_comercio]
   );
-
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     noKeyboard: true,
     accept: ".jpeg,.png",
     maxFiles: 1,
     onDrop,
   });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>{file.path}</li>
-  ));
+  const mostrarImagen = (url) => {
+    setIsVisibleModal(true);
+    setModalTitle("RUT");
+    setModalContent(
+      <img
+        style={{ width: "100%", height: "100%" }}
+        size={150}
+        src={url}
+        alt="archivo"
+      />
+    );
+  };
 
   return (
     <section>
@@ -565,14 +601,49 @@ function CargarCC(props) {
         <p>Carcar Cámara y Comercio</p>
       </div>
       <aside>
-        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+        <button
+          onClick={() => mostrarImagen(camara_comercioUrl)}
+          className="upload__boton"
+        >
+          <img
+            className="upload__boton-img"
+            size={10}
+            src={camara_comercioUrl ? camara_comercioUrl : NoDocument}
+            alt="archivo"
+          />
+        </button>
       </aside>
+      <Modal
+        className="upload__modal"
+        title={modalTitle}
+        isVisible={isVisibleModal}
+        setIsVisible={setIsVisibleModal}
+      >
+        {modalContent}
+      </Modal>
     </section>
   );
 }
 
 function CargarRUT(props) {
   const { rut, setRut } = props;
+  const [rutUrl, setRutUrl] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(null);
+
+  useEffect(() => {
+    if (rut) {
+      if (rut.preview) {
+        setRutUrl(rut.preview);
+      } else {
+        setRutUrl(rut);
+      }
+    } else {
+      setRutUrl(null);
+    }
+  }, [rut]);
+
   const onDrop = useCallback(
     (acceptedFile) => {
       const file = acceptedFile[0];
@@ -580,16 +651,25 @@ function CargarRUT(props) {
     },
     [setRut]
   );
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     noKeyboard: true,
     accept: ".jpeg,.png",
     maxFiles: 1,
     onDrop,
   });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>{file.path}</li>
-  ));
+  const mostrarImagen = (url) => {
+    setIsVisibleModal(true);
+    setModalTitle("RUT");
+    setModalContent(
+      <img
+        style={{ width: "100%", height: "100%" }}
+        size={150}
+        src={url}
+        alt="archivo"
+      />
+    );
+  };
 
   return (
     <section>
@@ -598,8 +678,24 @@ function CargarRUT(props) {
         <p>Carcar RUT</p>
       </div>
       <aside>
-        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+        <button onClick={() => mostrarImagen(rutUrl)} className="upload__boton">
+          <img
+            className="upload__boton-img"
+            size={10}
+            //<div>Iconos diseñados por <a href="https://www.flaticon.es/autores/xnimrodx" title="xnimrodx">xnimrodx</a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es</a></div>
+            src={rutUrl ? rutUrl : NoDocument}
+            alt="archivo"
+          />
+        </button>
       </aside>
+      <Modal
+        className="upload__modal"
+        title={modalTitle}
+        isVisible={isVisibleModal}
+        setIsVisible={setIsVisibleModal}
+      >
+        {modalContent}
+      </Modal>
     </section>
   );
 }

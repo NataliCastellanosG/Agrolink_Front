@@ -78,10 +78,19 @@ export default function Informacion(props) {
     );
   };
 
-  const mostrarImagen = (url) => {
+  const mostrarRUT = (url) => {
     setIsVisibleModal(true);
-    setModalTitle("Cámara y comercio");
-    setModalContent(<img src={url} alt="archivo" />);
+    setModalTitle("RUT");
+    setModalContent(
+      <img style={{ width: "100%", height: "100%" }} src={url} alt="archivo" />
+    );
+  };
+  const mostrarCC = (url) => {
+    setIsVisibleModal(true);
+    setModalTitle("CAMARA Y COMERCIO");
+    setModalContent(
+      <img style={{ width: "100%", height: "100%" }} src={url} alt="archivo" />
+    );
   };
 
   return (
@@ -122,15 +131,37 @@ export default function Informacion(props) {
           {empresaData.direccion_empresa}
           <br />
           <b>Reseña:</b> {empresaData.resena}
+          <Row gutter={16}>
+            <Col span={12}>
+              <Button
+                onClick={() => mostrarCC(camara_comercio)}
+                style={{ color: "rgba(0,0,0,0.3)" }}
+                className="informacion__content-boton"
+              >
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  size={150}
+                  src={camara_comercio}
+                  alt="archivo"
+                />
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button
+                onClick={() => mostrarRUT(rut)}
+                style={{ color: "rgba(0,0,0,0.3)" }}
+                className="informacion__content-boton"
+              >
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  size={150}
+                  src={rut}
+                  alt="archivo"
+                />
+              </Button>
+            </Col>
+          </Row>
         </Typography.Paragraph>
-      </Row>
-      <Row>
-        <Button
-          onClick={() => mostrarImagen(rut)}
-          style={{ color: "rgba(0,0,0,0.3)" }}
-        >
-          RUT
-        </Button>
       </Row>
 
       <Modal

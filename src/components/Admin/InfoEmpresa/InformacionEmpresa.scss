@@ -61,6 +61,16 @@
       padding-bottom: 25px;
       line-height: 60px;
     }
+    &-boton {
+      background-color: transparent;
+      border-color: transparent;
+      width: 100px;
+      height: 100px;
+      &-img {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 
   .ant-btn:hover,

@@ -25,7 +25,7 @@
 
     &__modal {
       .ant-modal-content {
-        width: 800px;
+        width: max-content;
         border-radius: 30px;
       }
 
@@ -53,6 +53,19 @@
         font-size: 14px;
         line-height: 1.5715;
         word-wrap: break-word;
+        width: 90%;
+        height: 90%;
+      }
+    }
+
+    &__boton {
+      background-color: transparent;
+      border-color: transparent;
+      width: 100px;
+      height: 100px;
+      &-img {
+        width: 100%;
+        height: 100%;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Layout, Row, Tabs, Typography } from "antd";
 import { Redirect } from "react-router-dom";
 
@@ -6,13 +6,22 @@ import Logo from "../../../assets/img/png/LOGO_FINAL.png";
 import RegisterForm from "../../../components/Admin/RegistrarEmpresa";
 import Sesion from "../../../components/Admin/InicioSesion";
 import { getAccessTokenApi } from "../../../api/auth";
+import { mostrarAsociacionesApi } from "../../../api/asociacion";
 
 import "./SignIn.scss";
 
 export default function SignIn() {
   const { Content, Footer, Header } = Layout;
   const { TabPane } = Tabs;
+  const { token } = getAccessTokenApi;
 
+  const [asociaciones, setAsociaciones] = useState([]);
+
+  useEffect(() => {
+    mostrarAsociacionesApi(token, true).then((response) => {
+      setAsociaciones(response.asociaciones);
+    });
+  }, [token]);
   if (getAccessTokenApi()) {
     return <Redirect to="/admin" />;
   }
@@ -54,7 +63,7 @@ export default function SignIn() {
               tab={<Typography component={"span"}>NUEVA EMPRESA</Typography>}
               key="2"
             >
-              <RegisterForm />
+              <RegisterForm asociaciones={asociaciones} />
             </TabPane>
           </Tabs>
         </Typography>

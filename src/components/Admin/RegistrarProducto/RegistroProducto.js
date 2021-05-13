@@ -18,7 +18,8 @@ import {
   GoldOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-
+import Modal from "../../Modal";
+import NoDocument from "../../../assets/img/png/documento.png";
 import { useDropzone } from "react-dropzone";
 import { minLengthValidation } from "../../../utils/formValidation";
 import { registrarProductoApi } from "../../../api/producto";
@@ -316,35 +317,77 @@ export default function RegisterForm(props) {
 
 function CargarImagen(props) {
   const { imagen, setImagen } = props;
+  const [imagenUrl, setImagenUrl] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(null);
+
+  useEffect(() => {
+    if (imagen) {
+      if (imagen.preview) {
+        setImagenUrl(imagen.preview);
+      } else {
+        setImagenUrl(imagen);
+      }
+    } else {
+      setImagenUrl(null);
+    }
+  }, [imagen]);
 
   const onDrop = useCallback(
     (acceptedFile) => {
       const file = acceptedFile[0];
-      setImagen(file);
+      setImagen({ file, preview: URL.createObjectURL(file) });
     },
     [setImagen]
   );
-
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     noKeyboard: true,
     accept: ".jpeg,.png",
     maxFiles: 1,
     onDrop,
   });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>{file.path}</li>
-  ));
+  const mostrarImagen = (url) => {
+    setIsVisibleModal(true);
+    setModalTitle("Imagen del producto");
+    setModalContent(
+      <img
+        style={{ width: "100%", height: "100%" }}
+        size={150}
+        src={url}
+        alt="archivo"
+      />
+    );
+  };
 
   return (
     <section>
       <div {...getRootProps({ className: "upload" })}>
         <input {...getInputProps({})} />
-        <p>Imagen</p>
+        <p>Carcar Cámara y Comercio</p>
       </div>
       <aside>
-        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+        <button
+          onClick={() => mostrarImagen(imagenUrl)}
+          className="upload__boton"
+        >
+          <img
+            className="upload__boton-img"
+            size={10}
+            src={imagenUrl ? imagenUrl : NoDocument}
+            alt="archivo"
+          />
+        </button>
       </aside>
+      <Modal
+        className="upload__modal"
+        title={modalTitle}
+        isVisible={isVisibleModal}
+        setIsVisible={setIsVisibleModal}
+      >
+        {modalContent}
+      </Modal>
     </section>
   );
 }

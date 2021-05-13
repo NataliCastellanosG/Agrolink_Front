@@ -11,8 +11,9 @@ import {
   mostrarProductosActivos,
   mostrarProductosInactivos,
 } from "../../../api/producto";
-import { mostrarAsociacionesApi } from "../../../api/asociacion";
+import { obtenerImagenApi } from "../../../api/producto";
 
+import { mostrarAsociacionesApi } from "../../../api/asociacion";
 import "./Empresa.scss";
 
 export default function Empresa(props) {
@@ -21,6 +22,10 @@ export default function Empresa(props) {
   const [empresa, setEmpresa] = useState();
   const [productosActivos, setProductosActivos] = useState([]);
   const [productosInactivos, setProductosInactivos] = useState([]);
+  const [productosAct, setProductosAct] = useState([]);
+  const [producto, setProducto] = useState();
+  const [imagenUrl, setImagenUrl] = useState(null);
+
   const [asociaciones, setAsociaciones] = useState([]);
   const token = getAccessTokenApi();
 

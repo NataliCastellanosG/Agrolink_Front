@@ -12,14 +12,29 @@ import {
 import { useDropzone } from "react-dropzone";
 import { obtenerCCApi, obtenerRutApi } from "../../../api/empresa";
 import Modal from "../../Modal";
-import Nodocument from "../../../assets/img/jpg/sinDocumento.jpg";
+import NoDocument from "../../../assets/img/png/documento.png";
 import "./EditarEmpresa.scss";
 
 export default function EditarForm(props) {
   const { empresa, asociaciones } = props;
   const [camara_comercio, setCamara_comercio] = useState(null);
   const [rut, setRut] = useState(null);
-  const [empresaData, setEmpresaData] = useState({});
+  const [empresaData, setEmpresaData] = useState({
+    asociacion: empresa.asociacion,
+    rol: empresa.rol,
+    nombre: empresa.nombre,
+    nit: empresa.nit,
+    representante_legal: empresa.representante_legal,
+    cedula_representante_legal: empresa.cedula_representante_legal,
+    correo_electronico: empresa.correo_electronico,
+    departamento: empresa.departamento,
+    municipio: empresa.municipio,
+    direccion_empresa: empresa.direccion_empresa,
+    camara_comercio: empresa.camara_comercio,
+    rut: empresa.rut,
+    resena: empresa.resena,
+    video_presentacion: empresa.video_presentacion,
+  });
 
   useEffect(() => {
     setEmpresaData({
@@ -74,8 +89,8 @@ export default function EditarForm(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rut]);
 
-  console.log("empresa editadar:", empresaData);
-  console.log("documentos", camara_comercio, rut);
+  console.log(rut);
+
   const actualizarEmpresa = (e) => {
     console.log(empresaData);
   };
@@ -418,6 +433,21 @@ export default function EditarForm(props) {
 function CargarCC(props) {
   const { camara_comercio, setCamara_comercio } = props;
   const [camara_comercioUrl, setCamara_comercioUrl] = useState(null);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(null);
+
+  useEffect(() => {
+    if (camara_comercio) {
+      if (camara_comercio.preview) {
+        setCamara_comercioUrl(camara_comercio.preview);
+      } else {
+        setCamara_comercioUrl(camara_comercio);
+      }
+    } else {
+      setCamara_comercioUrl(null);
+    }
+  }, [camara_comercio]);
 
   const onDrop = useCallback(
     (acceptedFile) => {
@@ -426,17 +456,25 @@ function CargarCC(props) {
     },
     [setCamara_comercio]
   );
-
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     noKeyboard: true,
     accept: ".jpeg,.png",
     maxFiles: 1,
     onDrop,
   });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>{file.path}</li>
-  ));
+  const mostrarImagen = (url) => {
+    setIsVisibleModal(true);
+    setModalTitle("RUT");
+    setModalContent(
+      <img
+        style={{ width: "100%", height: "100%" }}
+        size={150}
+        src={url}
+        alt="archivo"
+      />
+    );
+  };
 
   return (
     <section>
@@ -445,8 +483,26 @@ function CargarCC(props) {
         <p>Carcar Cámara y Comercio</p>
       </div>
       <aside>
-        <ul style={{ color: "rgba(0,0,0,0.3)" }}>{files}</ul>
+        <button
+          onClick={() => mostrarImagen(camara_comercioUrl)}
+          className="upload__boton"
+        >
+          <img
+            className="upload__boton-img"
+            size={10}
+            src={camara_comercioUrl ? camara_comercioUrl : NoDocument}
+            alt="archivo"
+          />
+        </button>
       </aside>
+      <Modal
+        className="upload__modal"
+        title={modalTitle}
+        isVisible={isVisibleModal}
+        setIsVisible={setIsVisibleModal}
+      >
+        {modalContent}
+      </Modal>
     </section>
   );
 }
@@ -459,6 +515,7 @@ function CargarRUT(props) {
   const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
+    console.log(rut);
     if (rut) {
       if (rut.preview) {
         setRutUrl(rut.preview);
@@ -470,7 +527,6 @@ function CargarRUT(props) {
     }
   }, [rut]);
 
-  console.log("rut", rutUrl);
   const onDrop = useCallback(
     (acceptedFile) => {
       const file = acceptedFile[0];
@@ -478,22 +534,24 @@ function CargarRUT(props) {
     },
     [setRut]
   );
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     noKeyboard: true,
     accept: ".jpeg,.png",
     maxFiles: 1,
     onDrop,
   });
 
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>{file.path}</li>
-  ));
-
   const mostrarImagen = (url) => {
-    console.log(url);
     setIsVisibleModal(true);
     setModalTitle("RUT");
-    setModalContent(<img size={150} src={url} alt="archivo" />);
+    setModalContent(
+      <img
+        style={{ width: "100%", height: "100%" }}
+        size={150}
+        src={url}
+        alt="archivo"
+      />
+    );
   };
 
   return (
@@ -503,7 +561,14 @@ function CargarRUT(props) {
         <p>Carcar RUT</p>
       </div>
       <aside>
-        <img size={150} src={rutUrl} alt="archivo" />
+        <button onClick={() => mostrarImagen(rutUrl)} className="upload__boton">
+          <img
+            className="upload__boton-img"
+            size={10}
+            src={rutUrl ? rutUrl : NoDocument}
+            alt="archivo"
+          />
+        </button>
       </aside>
       <Modal
         className="upload__modal"
